@@ -1,0 +1,3 @@
+[workspace]
+resolver = "3"
+members = [ "crates/arena", "crates/magician", "crates/prophet","crates/tactition", "crates/translator", "crates/warden"]
