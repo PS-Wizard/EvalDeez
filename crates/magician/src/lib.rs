@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::sync::OnceLock;
 
 use attacks::build_attack_table_for_square;

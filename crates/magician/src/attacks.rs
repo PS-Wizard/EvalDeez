@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use crate::utils::enumerate_blocker_configs;
 
 pub fn build_attack_table_for_square(

@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 pub fn rook_attacks_from(square: u8, blockers: u64) -> u64 {
     let rank = square / 8;
     let file = square % 8;

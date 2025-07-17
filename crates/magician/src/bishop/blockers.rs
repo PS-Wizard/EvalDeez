@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 pub fn bishop_occupancy_mask(square: u8) -> u64 {
     let rank = square / 8;
     let file = square % 8;

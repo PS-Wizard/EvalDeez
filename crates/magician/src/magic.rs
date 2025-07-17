@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use rand::Rng;
 
 use crate::utils::enumerate_blocker_configs;

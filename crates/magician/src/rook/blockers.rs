@@ -1,8 +1,4 @@
-use std::{
-    fs::File,
-    io::{BufWriter, Write},
-};
-
+#![allow(dead_code)]
 pub fn rook_occupancy_mask(square: u8) -> u64 {
     let rank = square / 8;
     let file = square % 8;
