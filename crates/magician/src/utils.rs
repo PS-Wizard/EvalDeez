@@ -113,6 +113,8 @@ pub fn write_occupancies_to_bin(filename: &str, occupancies: &[u64]) -> std::io:
     Ok(())
 }
 
+// NOTE:
+// First 8 bytes magic number, next 1 byte shift
 pub fn write_magics_to_bin(filename: &str, entries: &[(u64, u8)]) -> std::io::Result<()> {
     let file = File::create(filename)?;
     let mut writer = BufWriter::new(file);

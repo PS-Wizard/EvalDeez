@@ -57,9 +57,6 @@ pub fn find_magics_number(square: u8, mask: &u64) -> u64 {
     panic!("No magic number found for square {}", square);
 }
 
-// NOTE:
-// First 8 bytes magic number, next 1 byte shift
-
 #[cfg(test)]
 mod test_magics {
     use crate::{

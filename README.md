@@ -25,7 +25,6 @@ Built from the ground up with bitboards, magic, and good ol’ brainpower ( and 
 ---
 
 ## 🧠 What's in the Box?
-
 This repo is a full-on **chess engine lab**, split into clean Rust crates:
 
 | Crate       | Role                                                                 |
@@ -36,6 +35,14 @@ This repo is a full-on **chess engine lab**, split into clean Rust crates:
 | `tactition` | Evaluation and search — the brain of the beast 🧮                    |
 | `translator`| FEN / UCI / PGN parsing and formatting 📜                            |
 | `warden`    | Rules enforcement, move legality, time control — the law 🚔          |
+
+### Quick Links:
+- [magician](https://github.com/PS-Wizard/evaldeez/tree/main/crates/magician)
+- [arena](https://github.com/PS-Wizard/evaldeez/tree/main/crates/arena)
+- [prophet](https://github.com/PS-Wizard/evaldeez/tree/main/crates/prophet)
+- [tactition](https://github.com/PS-Wizard/evaldeez/tree/main/crates/tactition)
+- [translator](https://github.com/PS-Wizard/evaldeez/tree/main/crates/translator)
+- [warden](https://github.com/PS-Wizard/evaldeez/tree/main/crates/warden)
 
 ---
 
