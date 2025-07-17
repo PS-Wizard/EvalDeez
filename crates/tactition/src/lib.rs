@@ -1,14 +1,18 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use magician::prelude::*;
+fn main() {
+    init_magician();
+    print_board(get_bishop_attacks(
+        notation_to_index("a1"),
+        blockers_from_squares(&["b2"]),
+    ));
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
+mod test {
+    use crate::main;
 
     #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    fn test_shit() {
+        main();
     }
 }

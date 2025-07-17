@@ -1,21 +1,34 @@
 use std::{
     fs::File,
-    io::{BufReader, Read},
+    io::{BufReader, BufWriter, Read, Write},
+    path::PathBuf,
 };
 
 pub fn print_board(bb: u64) {
+    const RESET: &str = "\x1b[0m";
+    const YELLOW: &str = "\x1b[33m";
+    const GRAY: &str = "\x1b[90m";
+    let padding = " ".repeat(80);
+
     for rank in (0..8).rev() {
+        print!("{padding}{}{} {}", GRAY, rank + 1, RESET); // Rank label
         for file in 0..8 {
             let square = rank * 8 + file;
             let bit = (bb >> square) & 1;
             if bit == 1 {
-                print!(" X ");
+                print!(" {}X{} ", YELLOW, RESET);
             } else {
                 print!(" . ");
             }
         }
         println!();
     }
+
+    print!("{padding}{}  ", GRAY); // File labels
+    for file in b'a'..=b'h' {
+        print!(" {}{} ", GRAY, file as char);
+    }
+    println!("{}\n", RESET);
 }
 
 pub fn notation_to_index(notation: &str) -> u8 {
@@ -69,8 +82,47 @@ pub fn load_magics_bin(filename: &str) -> std::io::Result<Vec<(u64, u8)>> {
     Ok(entries)
 }
 
+pub fn load_occupancies_bin(filename: &str) -> std::io::Result<Vec<u64>> {
+    let file = File::open(filename)?;
+    let mut reader = BufReader::new(file);
+
+    let mut occupancies = Vec::new();
+    let mut buf = [0u8; 8]; // just a u64
+
+    while reader.read_exact(&mut buf).is_ok() {
+        let mask = u64::from_le_bytes(buf);
+        occupancies.push(mask);
+    }
+
+    Ok(occupancies)
+}
+
 pub fn blockers_from_squares(squares: &[&str]) -> u64 {
     squares
         .iter()
         .fold(0u64, |acc, &sq| acc | (1u64 << notation_to_index(sq)))
+}
+
+pub fn write_occupancies_to_bin(filename: &str, occupancies: &[u64]) -> std::io::Result<()> {
+    let file = File::create(filename)?;
+    let mut writer = BufWriter::new(file);
+    for &mask in occupancies {
+        writer.write_all(&mask.to_le_bytes())?;
+    }
+    Ok(())
+}
+
+pub fn write_magics_to_bin(filename: &str, entries: &[(u64, u8)]) -> std::io::Result<()> {
+    let file = File::create(filename)?;
+    let mut writer = BufWriter::new(file);
+    for &(magic, shift) in entries {
+        writer.write_all(&magic.to_le_bytes())?;
+        writer.write_all(&shift.to_le_bytes())?;
+    }
+    Ok(())
+}
+pub fn magician_data_file(name: &str) -> PathBuf {
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push(name);
+    path
 }

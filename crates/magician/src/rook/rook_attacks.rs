@@ -62,7 +62,7 @@ mod test_rook {
             let attacks = rook_attacks_from(notation_to_index("e4"), blockers);
             println!("The Attacks:");
             print_board(attacks);
-            println!("")
+            println!("");
         }
     }
 }
