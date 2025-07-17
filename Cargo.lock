@@ -123,6 +123,9 @@ dependencies = [
 [[package]]
 name = "tactition"
 version = "0.1.0"
+dependencies = [
+ "magician",
+]
 
 [[package]]
 name = "translator"

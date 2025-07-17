@@ -1,3 +1,8 @@
+use std::{
+    fs::File,
+    io::{BufWriter, Write},
+};
+
 pub fn rook_occupancy_mask(square: u8) -> u64 {
     let rank = square / 8;
     let file = square % 8;
@@ -25,7 +30,9 @@ pub fn rook_occupancy_mask(square: u8) -> u64 {
 
 #[cfg(test)]
 mod test_rook {
-    use crate::utils::{enumerate_blocker_configs, notation_to_index, print_board};
+    use crate::utils::{
+        enumerate_blocker_configs, notation_to_index, print_board, write_occupancies_to_bin,
+    };
 
     use super::rook_occupancy_mask;
 
@@ -51,5 +58,15 @@ mod test_rook {
             1024,
             "There should be 1024 total blocker variations for a rook on e4, excluding edges there are total 10 squares, so its just 2^10"
         );
+    }
+    #[test]
+    #[ignore = "computationally heavier"]
+    fn test_write_rook_occupancies() {
+        let mut entries = Vec::with_capacity(64);
+        for square in 0..64 {
+            let occupancy_mask = rook_occupancy_mask(square);
+            entries.push(occupancy_mask);
+        }
+        write_occupancies_to_bin("rook_occupancies.bin", &entries).unwrap();
     }
 }
