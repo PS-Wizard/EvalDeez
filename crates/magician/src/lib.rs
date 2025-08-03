@@ -49,7 +49,7 @@ fn init_bishop_attacks() {
     BISHOP_ATTACK_TABLES.set(tables).ok();
 }
 
-pub fn get_bishop_attacks(square: u8, blockers: u64) -> u64 {
+pub fn get_bishop_attacks(from: u8, blockers: u64) -> u64 {
     let magics = BISHOP_MAGICS_SHIFTS
         .get()
         .expect("BISHOP magics not initialized");
@@ -60,11 +60,11 @@ pub fn get_bishop_attacks(square: u8, blockers: u64) -> u64 {
         .get()
         .expect("BISHOP occupancies not initialized");
 
-    let (magic, shift) = magics[square as usize];
-    let mask = occupancies[square as usize];
+    let (magic, shift) = magics[from as usize];
+    let mask = occupancies[from as usize];
     let index = ((blockers & mask).wrapping_mul(magic) >> shift) as usize;
 
-    tables[square as usize][index]
+    tables[from as usize][index]
 }
 
 fn init_rook_attacks() {
@@ -128,7 +128,7 @@ mod tests {
     fn test_get_rook_attacks() {
         init_rook_attacks();
         let square = notation_to_index("d4");
-        let blockers = blockers_from_squares(&[ "c4", "e4"]);
+        let blockers = blockers_from_squares(&["c4", "e4"]);
         let attacks = get_rook_attacks(square, blockers);
         print_board(attacks);
         println!();
@@ -262,7 +262,7 @@ mod tests {
         println!();
 
         let square = notation_to_index("d4");
-        let blockers = blockers_from_squares(&["c4","e4"]);
+        let blockers = blockers_from_squares(&["c4", "e4"]);
         let attacks = get_queen_attacks(square, blockers);
         print_board(attacks);
 
