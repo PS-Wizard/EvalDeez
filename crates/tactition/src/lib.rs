@@ -1,5 +1,6 @@
 mod king_moves;
 mod knight_moves;
+mod pawn_moves;
 
 use king_moves::init_king_moves;
 use knight_moves::init_knight_moves;
@@ -22,6 +23,8 @@ pub fn get_knight_attacks(from: u8, blockers: u64) -> u64 {
     let table = KNIGHT_ATTACKS.get().expect("KNIGHT table not initialized");
     table[from as usize] & !blockers
 }
+
+
 
 #[cfg(test)]
 mod test {
