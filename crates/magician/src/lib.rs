@@ -53,6 +53,7 @@ pub fn get_bishop_attacks(from: u8, blockers: u64) -> u64 {
     let magics = BISHOP_MAGICS_SHIFTS
         .get()
         .expect("BISHOP magics not initialized");
+    
     let tables = BISHOP_ATTACK_TABLES
         .get()
         .expect("BISHOP attack tables not initialized");

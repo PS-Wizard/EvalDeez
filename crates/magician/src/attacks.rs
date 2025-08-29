@@ -11,7 +11,6 @@ pub fn build_attack_table_for_square(
     let relevant_bits = mask.count_ones();
     let table_size = 1 << relevant_bits;
     let mut attack_table = vec![0u64; table_size as usize];
-
     for blockers in blocker_configs {
         let index = ((blockers.wrapping_mul(magic)) >> (64 - relevant_bits)) as usize;
         attack_table[index] = attacks_fn(square, blockers);
@@ -24,10 +23,7 @@ pub fn build_attack_table_for_square(
 mod test_attacks {
     use crate::{
         attacks::build_attack_table_for_square,
-        bishop::{
-            bishop_attacks::bishop_attacks_from,
-            blockers::bishop_occupancy_mask,
-        },
+        bishop::{bishop_attacks::bishop_attacks_from, blockers::bishop_occupancy_mask},
         rook::{blockers::rook_occupancy_mask, rook_attacks::rook_attacks_from},
         utils::{blockers_from_squares, load_magics_bin, notation_to_index, print_board},
     };

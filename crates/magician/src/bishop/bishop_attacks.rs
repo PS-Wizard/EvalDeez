@@ -1,4 +1,3 @@
-
 #![allow(dead_code)]
 pub fn bishop_attacks_from(square: u8, blockers: u64) -> u64 {
     let rank = square / 8;
@@ -9,7 +8,7 @@ pub fn bishop_attacks_from(square: u8, blockers: u64) -> u64 {
     for (dr, df) in [(-1, -1), (-1, 1), (1, -1), (1, 1)] {
         let mut r = rank as i8 + dr;
         let mut f = file as i8 + df;
-
+        
         while (0..8).contains(&r) && (0..8).contains(&f) {
             let idx = r as u8 * 8 + f as u8;
             attacks |= 1u64 << idx;

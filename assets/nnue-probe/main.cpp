@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
 
     int score = nnue_evaluate_fen(fen);
     std::cout << "Eval score: " << score << std::endl;
+    
 
     return 0;
 }

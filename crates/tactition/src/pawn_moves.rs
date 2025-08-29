@@ -40,7 +40,6 @@ pub fn generate_pawn_moves(
             }
         }
 
-        // en passant
         if let Some(ep_sq) = en_passant_square {
             let ep_bb = 1u64 << ep_sq;
             if (bb << 7 == ep_bb && bb & !FILE_A != 0) || (bb << 9 == ep_bb && bb & !FILE_H != 0) {
@@ -52,7 +51,6 @@ pub fn generate_pawn_moves(
         if one_step & blockers == 0 {
             moves |= one_step;
 
-            // double push (only if on rank 7)
             if pawn_pos / 8 == 6 {
                 let two_step = bb >> 16;
                 if (one_step | two_step) & blockers == 0 {
@@ -61,7 +59,6 @@ pub fn generate_pawn_moves(
             }
         }
 
-        // captures
         if bb & !FILE_A != 0 {
             let left = bb >> 9;
             if left & enemy_pieces != 0 {

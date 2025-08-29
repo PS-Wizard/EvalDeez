@@ -43,7 +43,6 @@ impl Piece {
             Color::White
         }
     }
-
     pub fn is_white(self) -> bool {
         self.color() == Color::White
     }
