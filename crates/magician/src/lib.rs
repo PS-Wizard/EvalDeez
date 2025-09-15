@@ -47,13 +47,26 @@ fn init_bishop_attacks() {
         tables.push(table);
     }
     BISHOP_ATTACK_TABLES.set(tables).ok();
+    if let Some(tables) = BISHOP_ATTACK_TABLES.get() {
+        let mut total_bytes = 0;
+        for table in tables {
+            total_bytes += std::mem::size_of_val(table.as_slice()); // inner u64 buffer
+            total_bytes += std::mem::size_of_val(table); // Vec struct overhead
+        }
+        println!(
+            "BISHOP_ATTACK_TABLES: {} bytes (~{:.2} KB, {:.2} MB)",
+            total_bytes,
+            total_bytes as f64 / 1024.0,
+            total_bytes as f64 / (1024.0 * 1024.0)
+        );
+    }
 }
 
 pub fn get_bishop_attacks(from: u8, blockers: u64) -> u64 {
     let magics = BISHOP_MAGICS_SHIFTS
         .get()
         .expect("BISHOP magics not initialized");
-    
+
     let tables = BISHOP_ATTACK_TABLES
         .get()
         .expect("BISHOP attack tables not initialized");

@@ -57,6 +57,7 @@ mod test_attacks {
         // Build the attack table for this square
         let attack_table = build_attack_table_for_square(square, mask, magic, bishop_attacks_from);
 
+
         let blockers = blockers_from_squares(&["c6", "g6", "c2"]);
         let index = ((blockers.wrapping_mul(magic)) >> shift) as usize;
 
